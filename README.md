@@ -20,14 +20,12 @@ currency-converter-app/
 |   |   `-- utils/
 |   |       `-- analytics.py
 |   |-- Dockerfile
-|   |-- .env.example
 |   `-- requirements.txt
 |-- frontend/
 |   |-- src/
-|   |-- .env.example
-|   |-- netlify.toml
 |   `-- package.json
 |-- docker-compose.yml
+|-- netlify.toml
 |-- render.yaml
 `-- README.md
 ```
@@ -46,7 +44,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-Create `backend/.env` from `backend/.env.example` and add your ExchangeRate API key.
+Use `backend/.env` for local backend environment variables.
 
 Backend will be live at: `http://localhost:8000`
 API docs at: `http://localhost:8000/docs`
@@ -59,13 +57,13 @@ npm install
 npm start
 ```
 
-Create `frontend/.env` from `frontend/.env.example` if you want to override the backend URL.
+Use `frontend/.env` if you want to override the backend URL locally.
 
 Frontend will be live at: `http://localhost:3000`
 
 ### 3. Docker (local)
 
-Create `backend/.env` from `backend/.env.example` and add your ExchangeRate API key.
+Make sure `backend/.env` exists with your local backend environment variables.
 
 ```bash
 docker compose up --build
@@ -105,7 +103,7 @@ Set this environment variable in Netlify:
 
 - `REACT_APP_API_URL`: your Render backend URL, for example `https://your-render-service.onrender.com`
 
-The included [frontend/netlify.toml](/C:/Users/manoj/Desktop/code/projects/forex-analytics-dashboard/frontend/netlify.toml) adds an SPA redirect so React Router routes like `/convert` and `/about` work on refresh.
+The included [netlify.toml](/C:/Users/manoj/Desktop/code/projects/forex-analytics-dashboard/netlify.toml) adds an SPA redirect so React Router routes like `/convert` and `/about` work on refresh.
 
 ## API Endpoints
 
