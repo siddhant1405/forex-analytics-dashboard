@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: forex-analytics-backend
+    runtime: docker
+    rootDir: backend
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: CORS_ALLOW_ORIGINS
+        sync: false
+      - key: EXCHANGE_API_KEY
+        sync: false

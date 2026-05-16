@@ -1,13 +1,14 @@
 """
-Currency Hub — FastAPI Backend
-Main application entry point.
+Currency Hub backend application entry point.
 """
 
+import os
+
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
 
-from app.routes import currencies, conversion, trends, performance
+from app.routes import conversion, currencies, performance, trends
 
 # Load environment variables
 load_dotenv()
@@ -20,13 +21,22 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# CORS — allow the React frontend
+# Allow local development origins by default and extend them in production
+# via the CORS_ALLOW_ORIGINS environment variable.
+cors_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+extra_origins = [
+    origin.strip()
+    for origin in os.getenv("CORS_ALLOW_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",   # React dev server
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=[*cors_origins, *extra_origins],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

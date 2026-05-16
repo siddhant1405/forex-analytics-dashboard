@@ -1,36 +1,35 @@
-# Currency Hub — Forex Analytics Dashboard
+# Currency Hub - Forex Analytics Dashboard
 
 A full-stack forex analytics dashboard built with **React** (frontend) and **FastAPI** (backend).
 
 ## Architecture
 
-```
+```text
 currency-converter-app/
-├── backend/                  # FastAPI Python backend
-│   ├── app/
-│   │   ├── main.py           # FastAPI app entry point
-│   │   ├── routes/
-│   │   │   ├── currencies.py # GET /api/currencies
-│   │   │   ├── conversion.py # GET /api/convert
-│   │   │   ├── trends.py     # GET /api/trends (with SMA, EMA, RSI, volatility)
-│   │   │   └── performance.py# GET /api/performance
-│   │   ├── services/
-│   │   │   ├── frankfurter.py # Frankfurter API client
-│   │   │   └── exchangerate.py# ExchangeRate API client
-│   │   └── utils/
-│   │       └── analytics.py  # SMA, EMA, RSI, volatility calculations
-│   ├── .env                  # API keys (not committed)
-│   └── requirements.txt
-├── frontend/                 # React frontend
-│   ├── src/
-│   │   ├── components/       # UI components
-│   │   ├── pages/            # Route pages
-│   │   └── utils/
-│   │       ├── api.js        # Backend API client
-│   │       └── analytics.js  # Client-side export utilities
-│   ├── .env                  # Backend URL config
-│   └── package.json
-└── README.md
+|-- backend/                  # FastAPI Python backend
+|   |-- app/
+|   |   |-- main.py           # FastAPI app entry point
+|   |   |-- routes/
+|   |   |   |-- currencies.py # GET /api/currencies
+|   |   |   |-- conversion.py # GET /api/convert
+|   |   |   |-- trends.py     # GET /api/trends
+|   |   |   `-- performance.py# GET /api/performance
+|   |   |-- services/
+|   |   |   |-- frankfurter.py
+|   |   |   `-- exchangerate.py
+|   |   `-- utils/
+|   |       `-- analytics.py
+|   |-- Dockerfile
+|   |-- .env.example
+|   `-- requirements.txt
+|-- frontend/
+|   |-- src/
+|   |-- .env.example
+|   |-- netlify.toml
+|   `-- package.json
+|-- docker-compose.yml
+|-- render.yaml
+`-- README.md
 ```
 
 ## Quick Start
@@ -47,6 +46,8 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
+Create `backend/.env` from `backend/.env.example` and add your ExchangeRate API key.
+
 Backend will be live at: `http://localhost:8000`
 API docs at: `http://localhost:8000/docs`
 
@@ -58,7 +59,53 @@ npm install
 npm start
 ```
 
+Create `frontend/.env` from `frontend/.env.example` if you want to override the backend URL.
+
 Frontend will be live at: `http://localhost:3000`
+
+### 3. Docker (local)
+
+Create `backend/.env` from `backend/.env.example` and add your ExchangeRate API key.
+
+```bash
+docker compose up --build
+```
+
+Frontend: `http://localhost:3000`
+Backend: `http://localhost:8000`
+
+## Deployment
+
+### Render (backend)
+
+Use the included [render.yaml](/C:/Users/manoj/Desktop/code/projects/forex-analytics-dashboard/render.yaml) or create a Render Web Service that points at the `backend` directory and uses Docker.
+
+Set these environment variables in Render:
+
+- `EXCHANGE_API_KEY`: your ExchangeRate API key
+- `CORS_ALLOW_ORIGINS`: your Netlify site URL, for example `https://your-site.netlify.app`
+- `PORT`: `8000`
+
+Once deployed, your backend URL will look like:
+
+```text
+https://your-render-service.onrender.com
+```
+
+### Netlify (frontend)
+
+Deploy the `frontend` directory as a separate Netlify site.
+
+Build settings:
+
+- Build command: `npm run build`
+- Publish directory: `build`
+
+Set this environment variable in Netlify:
+
+- `REACT_APP_API_URL`: your Render backend URL, for example `https://your-render-service.onrender.com`
+
+The included [frontend/netlify.toml](/C:/Users/manoj/Desktop/code/projects/forex-analytics-dashboard/frontend/netlify.toml) adds an SPA redirect so React Router routes like `/convert` and `/about` work on refresh.
 
 ## API Endpoints
 
@@ -73,12 +120,12 @@ Frontend will be live at: `http://localhost:3000`
 
 ## Features
 
-- **Currency Converter** — Real-time conversion via ExchangeRate API
-- **Time-Series Analysis** — Historical charts with SMA, EMA overlays and configurable timeframes (1W–5Y)
-- **Statistical Indicators** — Annualized volatility, RSI, high/low/avg computed server-side
-- **Global Performance** — 7D and 30D change tracking for major currency pairs
-- **Data Export** — Download historical data as CSV or JSON
-- **Dark Theme** — Professional financial dashboard UI
+- **Currency Converter** - Real-time conversion via ExchangeRate API
+- **Time-Series Analysis** - Historical charts with SMA, EMA overlays and configurable timeframes (1W-5Y)
+- **Statistical Indicators** - Annualized volatility, RSI, high/low/avg computed server-side
+- **Global Performance** - 7D/30D change tracking for major currency pairs
+- **Data Export** - Download historical data as CSV or JSON
+- **Dark Theme** - Professional financial dashboard UI
 
 ## Tech Stack
 
