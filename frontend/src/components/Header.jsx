@@ -16,7 +16,7 @@ export default function Header({ children }) {
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-bold text-text-primary tracking-tight leading-tight">Currency Hub</span>
-            <span className="text-[10px] text-text-muted uppercase tracking-widest">Forex Analytics</span>
+            <span className="text-[10px] text-text-muted uppercase tracking-widest">Currency Analytics</span>
           </div>
         </Link>
         <nav className="flex items-center gap-2">

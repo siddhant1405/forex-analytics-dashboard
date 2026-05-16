@@ -54,11 +54,11 @@ export default function AboutUsPage() {
               About the Project
             </span>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
-              Professional Forex<br />
+              Professional Global Currency Rates<br />
               <span className="bg-gradient-to-r from-accent to-purple-400 bg-clip-text text-transparent">Analytics Dashboard</span>
             </h1>
             <p className="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
-              Currency Hub is a comprehensive forex analytics platform built to showcase 
+              Currency Hub is a comprehensive global currency rates analytics platform built to showcase 
               modern web development and data analytics skills. It combines real-time data 
               visualization with statistical analysis tools used by financial professionals.
             </p>
@@ -69,7 +69,7 @@ export default function AboutUsPage() {
         <section className="py-16 px-6">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold text-center mb-2">Key Features</h2>
-            <p className="text-text-muted text-center mb-12">Everything you need for forex market analysis</p>
+            <p className="text-text-muted text-center mb-12">Everything you need for global currency rates analysis</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {features.map((feature, idx) => (

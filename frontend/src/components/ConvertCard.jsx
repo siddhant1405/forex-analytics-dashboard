@@ -20,7 +20,7 @@ export default function ConvertCard({
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-xl font-bold text-text-primary">Currency Converter</h2>
-          <p className="text-sm text-text-muted mt-0.5">Real-time exchange rates via FastAPI</p>
+          <p className="text-sm text-text-muted mt-0.5">Real-time exchange rates via secure backend API</p>
         </div>
         {conversionRate && (
           <div className="text-right">

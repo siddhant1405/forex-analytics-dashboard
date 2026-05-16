@@ -30,8 +30,8 @@ export default function HeroSection() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="text-5xl md:text-7xl font-extrabold text-text-primary mb-6 z-10 tracking-tight"
       >
-        <TypeAnimation
-          sequence={['Currency Hub', 2000, 'Forex Analytics', 2000, 'Market Insights', 2000]}
+          <TypeAnimation
+            sequence={['Currency Hub', 2000, 'Detailed Analytics', 2000, 'Global Trends & Insights', 2000]}
           wrapper="span"
           cursor={true}
           speed={30}
@@ -47,8 +47,8 @@ export default function HeroSection() {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="text-lg md:text-xl text-text-secondary font-normal mb-10 z-10 max-w-2xl leading-relaxed"
       >
-        Professional-grade forex dashboard with time-series analysis, 
-        statistical indicators, and real-time global market tracking.
+          Professional-grade global currency rates dashboard with time-series analysis, 
+          statistical indicators, and real-time global rates tracking.
       </motion.p>
 
       {/* CTA Buttons */}

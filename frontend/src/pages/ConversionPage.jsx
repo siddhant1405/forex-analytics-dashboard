@@ -23,7 +23,7 @@ ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Tooltip,
 const tabs = [
   { id: "convert", label: "Converter", icon: <FaExchangeAlt /> },
   { id: "analytics", label: "Analytics", icon: <FaChartLine /> },
-  { id: "performance", label: "Global Markets", icon: <FaGlobeAmericas /> },
+  { id: "performance", label: "Global Rates", icon: <FaGlobeAmericas /> },
 ];
 
 export default function ConversionPage() {
@@ -43,6 +43,7 @@ export default function ConversionPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   // Fetch currency list from backend
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function ConversionPage() {
         setFrankfurterCurrencies(codes);
         if (!codes.includes(trendFrom)) setTrendFrom(codes[0]);
         if (!codes.includes(trendTo)) setTrendTo(codes[1]);
+        setLastUpdated(new Date());
       })
       .catch(() =>
         setFrankfurterCurrencies(["USD", "EUR", "INR", "GBP", "JPY", "AUD", "CAD", "CHF"])
@@ -67,6 +69,7 @@ export default function ConversionPage() {
       const result = await convertCurrency(fromCurrency, toCurrency, amount);
       setConvertedAmount(result.converted_amount);
       setConversionRate(result.rate);
+      setLastUpdated(new Date());
       setError(null);
     } catch (err) {
       setError(err.message || "Failed to convert currency.");
@@ -96,14 +99,18 @@ export default function ConversionPage() {
           <div className="max-w-7xl mx-auto px-6 pt-8 pb-0">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6">
               <div>
-                <h1 className="text-2xl font-bold tracking-tight">Forex Dashboard</h1>
-                <p className="text-sm text-text-muted mt-1">Real-time analytics, conversion, and global market data</p>
+                <h1 className="text-2xl font-bold tracking-tight">Currency Dashboard</h1>
+                <p className="text-sm text-text-muted mt-1">Real-time analytics, conversion, and global rates data</p>
               </div>
               <div className="flex items-center gap-2 text-xs text-text-muted">
                 <span className="w-2 h-2 bg-success rounded-full animate-pulse"></span>
-                <span>Backend Connected</span>
+                <span>{new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 <span className="mx-2 text-border">|</span>
-                <span>{new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                <span>
+                  {lastUpdated
+                    ? `Last Updated: ${lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`
+                    : 'Last Updated: --:--:--'}
+                </span>
               </div>
             </div>
 
